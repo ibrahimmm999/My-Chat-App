@@ -36,4 +36,42 @@ class UserSource {
       return {'success': false};
     }
   }
+
+  static Future<bool> updateImage(
+      String id, String oldImage, String newImage, String newBase64code) async {
+    String url = '${Api.user}/update_image.php';
+    try {
+      http.Response response = await http.post(Uri.parse(url), body: {
+        'id': id,
+        'old_image': oldImage,
+        'new_image': newImage,
+        'new_base64code': newBase64code,
+      });
+      DMethod.printTitle('User source - updateImage', response.body);
+      Map responseBody = jsonDecode(response.body);
+      return responseBody['success'];
+    } catch (e) {
+      DMethod.printTitle('User source - updateImage', e.toString());
+      return false;
+    }
+  }
+
+  static Future<Map<String, dynamic>> stat(String idUser) async {
+    String url = '${Api.user}/stat.php';
+    try {
+      http.Response response = await http.post(Uri.parse(url), body: {
+        'id_user': idUser,
+      });
+      DMethod.printTitle('User source - login', response.body);
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
+      return responseBody;
+    } catch (e) {
+      DMethod.printTitle('User source - login', e.toString());
+      return {
+        "topic": 0.0,
+        "follower": 0.0,
+        "following": 0.0,
+      };
+    }
+  }
 }
