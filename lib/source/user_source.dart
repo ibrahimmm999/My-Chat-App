@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:chat_app/config/api.dart';
+import 'package:chat_app/model/user.dart';
 import 'package:d_method/d_method.dart';
 import 'package:http/http.dart' as http;
 
@@ -62,16 +63,39 @@ class UserSource {
       http.Response response = await http.post(Uri.parse(url), body: {
         'id_user': idUser,
       });
-      DMethod.printTitle('User source - login', response.body);
+      DMethod.printTitle('User source - stat', response.body);
       Map<String, dynamic> responseBody = jsonDecode(response.body);
       return responseBody;
     } catch (e) {
-      DMethod.printTitle('User source - login', e.toString());
+      DMethod.printTitle('User source - stat', e.toString());
       return {
         "topic": 0.0,
         "follower": 0.0,
         "following": 0.0,
       };
+    }
+  }
+
+  static Future<List<User>> search(String query) async {
+    String url = '${Api.user}/search.php';
+    try {
+      http.Response response = await http.post(Uri.parse(url), body: {
+        'search_query': query,
+      });
+      DMethod.printTitle('User source - search', response.body);
+      Map responseBody = jsonDecode(response.body);
+      if (responseBody['success']) {
+        List list = responseBody['data'];
+        List<User> listUser = list.map((e) {
+          Map<String, dynamic> item = Map<String, dynamic>.from(e);
+          return User.fromJson(item);
+        }).toList();
+        return listUser;
+      }
+      return [];
+    } catch (e) {
+      DMethod.printTitle('User source - search', e.toString());
+      return [];
     }
   }
 }
