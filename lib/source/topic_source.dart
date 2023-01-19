@@ -112,4 +112,50 @@ class TopicSource {
       return [];
     }
   }
+
+  static Future<List<Topic>> readWhereIdUser(String idUser) async {
+    String url = '${Api.topic}/read_where_id_user.php';
+    try {
+      http.Response response = await http.post(Uri.parse(url), body: {
+        'id_user': idUser,
+      });
+      DMethod.printTitle('Topic source - readWhereIdUser', response.body);
+      Map responseBody = jsonDecode(response.body);
+      if (responseBody['success']) {
+        List list = responseBody['data'];
+        List<Topic> listTopic = list.map((e) {
+          Map<String, dynamic> item = Map<String, dynamic>.from(e);
+          return Topic.fromJson(item);
+        }).toList();
+        return listTopic;
+      }
+      return [];
+    } catch (e) {
+      DMethod.printTitle('Topic source - readWhereIdUser', e.toString());
+      return [];
+    }
+  }
+
+  static Future<List<Topic>> search(String query) async {
+    String url = '${Api.topic}/search.php';
+    try {
+      http.Response response = await http.post(Uri.parse(url), body: {
+        'search_query': query,
+      });
+      DMethod.printTitle('Topic source - search', response.body);
+      Map responseBody = jsonDecode(response.body);
+      if (responseBody['success']) {
+        List list = responseBody['data'];
+        List<Topic> listTopic = list.map((e) {
+          Map<String, dynamic> item = Map<String, dynamic>.from(e);
+          return Topic.fromJson(item);
+        }).toList();
+        return listTopic;
+      }
+      return [];
+    } catch (e) {
+      DMethod.printTitle('Topic source - search', e.toString());
+      return [];
+    }
+  }
 }
