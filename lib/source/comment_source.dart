@@ -4,6 +4,7 @@ import 'package:d_method/d_method.dart';
 import 'package:http/http.dart' as http;
 
 import '../config/api.dart';
+import '../model/comment.dart';
 
 class CommentSource {
   static Future<bool> create(
@@ -46,6 +47,29 @@ class CommentSource {
     } catch (e) {
       DMethod.printTitle('Comment source - delete', e.toString());
       return false;
+    }
+  }
+
+  static Future<List<Comment>> read(String idTopic) async {
+    String url = '${Api.comment}/read.php';
+    try {
+      http.Response response = await http.post(Uri.parse(url), body: {
+        'id_topic': idTopic,
+      });
+      DMethod.printTitle('Comment source - read', response.body);
+      Map responseBody = jsonDecode(response.body);
+      if (responseBody['success']) {
+        List list = responseBody['data'];
+        List<Comment> listComment = list.map((e) {
+          Map<String, dynamic> item = Map<String, dynamic>.from(e);
+          return Comment.fromJson(item);
+        }).toList();
+        return listComment;
+      }
+      return [];
+    } catch (e) {
+      DMethod.printTitle('Comment source - read', e.toString());
+      return [];
     }
   }
 }
