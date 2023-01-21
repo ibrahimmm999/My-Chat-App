@@ -1,5 +1,6 @@
 import 'package:chat_app/config/app_route.dart';
 import 'package:chat_app/config/theme.dart';
+import 'package:chat_app/controller/c_feed.dart';
 import 'package:chat_app/controller/c_home.dart';
 import 'package:chat_app/controller/c_user.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => CUser()),
-        ChangeNotifierProvider(create: (_) => CHome())
+        ChangeNotifierProvider(create: (_) => CHome()),
+        ChangeNotifierProvider(create: (_) => CFeed()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
