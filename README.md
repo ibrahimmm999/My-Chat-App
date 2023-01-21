@@ -1,4 +1,4 @@
-# chat_app
+# My Chat App
 
 A chat app built on Flutter, PHP, and MySQL.
 
