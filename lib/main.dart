@@ -1,7 +1,10 @@
 import 'package:chat_app/config/app_route.dart';
 import 'package:chat_app/config/theme.dart';
+import 'package:chat_app/controller/c_explore.dart';
 import 'package:chat_app/controller/c_feed.dart';
 import 'package:chat_app/controller/c_home.dart';
+import 'package:chat_app/controller/c_mytopic.dart';
+import 'package:chat_app/controller/c_profile.dart';
 import 'package:chat_app/controller/c_user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -23,6 +26,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CUser()),
         ChangeNotifierProvider(create: (_) => CHome()),
         ChangeNotifierProvider(create: (_) => CFeed()),
+        ChangeNotifierProvider(create: (_) => CMyTopic()),
+        ChangeNotifierProvider(create: (_) => CExplore()),
+        ChangeNotifierProvider(create: (_) => CProfile()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
