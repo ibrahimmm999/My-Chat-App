@@ -1,5 +1,6 @@
 import 'package:chat_app/config/session.dart';
 import 'package:chat_app/controller/c_add_topic.dart';
+import 'package:chat_app/controller/c_comment.dart';
 import 'package:chat_app/controller/c_follower.dart';
 import 'package:chat_app/controller/c_following.dart';
 import 'package:chat_app/controller/c_profile.dart';
@@ -22,6 +23,7 @@ class AppRoute {
   static const search = '/search';
   static const follower = '/follower';
   static const following = '/following';
+  static const comment = '/comment';
 
   static GoRouter routerConfig = GoRouter(
       debugLogDiagnostics: true,
@@ -83,6 +85,13 @@ class AppRoute {
           builder: (context, state) => ChangeNotifierProvider(
             child: const Scaffold(),
             create: (_) => CFollowing(),
+          ),
+        ),
+        GoRoute(
+          path: comment,
+          builder: (context, state) => ChangeNotifierProvider(
+            child: const Scaffold(),
+            create: (_) => CComment(),
           ),
         ),
       ]);

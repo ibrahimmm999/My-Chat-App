@@ -1,10 +1,7 @@
 import 'dart:convert';
 
-import 'package:chat_app/model/topic.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../source/topic_source.dart';
 
 class CAddTopic extends ChangeNotifier {
   final List<String> _imageNames = [];
