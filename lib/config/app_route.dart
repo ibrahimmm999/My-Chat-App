@@ -1,5 +1,9 @@
 import 'package:chat_app/config/session.dart';
 import 'package:chat_app/controller/c_add_topic.dart';
+import 'package:chat_app/controller/c_follower.dart';
+import 'package:chat_app/controller/c_following.dart';
+import 'package:chat_app/controller/c_profile.dart';
+import 'package:chat_app/controller/c_search.dart';
 import 'package:chat_app/model/user.dart';
 import 'package:chat_app/pages/error_page.dart';
 import 'package:chat_app/pages/home_page.dart';
@@ -14,6 +18,10 @@ class AppRoute {
   static const login = '/login';
   static const register = '/register';
   static const addTopic = '/add-topic';
+  static const profile = '/profile';
+  static const search = '/search';
+  static const follower = '/follower';
+  static const following = '/following';
 
   static GoRouter routerConfig = GoRouter(
       debugLogDiagnostics: true,
@@ -46,7 +54,35 @@ class AppRoute {
           path: addTopic,
           builder: (context, state) => ChangeNotifierProvider(
             child: const Scaffold(),
-            create: (context) => CAddTopic(),
+            create: (_) => CAddTopic(),
+          ),
+        ),
+        GoRoute(
+          path: profile,
+          builder: (context, state) => ChangeNotifierProvider(
+            child: const Scaffold(),
+            create: (_) => CProfile(),
+          ),
+        ),
+        GoRoute(
+          path: search,
+          builder: (context, state) => ChangeNotifierProvider(
+            child: const Scaffold(),
+            create: (_) => CSearch(),
+          ),
+        ),
+        GoRoute(
+          path: follower,
+          builder: (context, state) => ChangeNotifierProvider(
+            child: const Scaffold(),
+            create: (_) => CFollower(),
+          ),
+        ),
+        GoRoute(
+          path: following,
+          builder: (context, state) => ChangeNotifierProvider(
+            child: const Scaffold(),
+            create: (_) => CFollowing(),
           ),
         ),
       ]);
