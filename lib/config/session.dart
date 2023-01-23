@@ -15,4 +15,16 @@ class Session {
     }
     return currentUser;
   }
+
+  static Future<bool> setUser(User user) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    Map<String, dynamic> mapUser = user.toJson();
+    String stringUser = jsonEncode(mapUser);
+    return await pref.setString('user', stringUser);
+  }
+
+  static Future<bool> clearUser() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return await pref.remove('user');
+  }
 }
