@@ -13,6 +13,7 @@ class CComment extends ChangeNotifier {
   List<Comment> get comments => _comments;
   setComments(Topic topic) async {
     _image = ' ';
+    _imageBase64codes = "";
     _comments = await CommentSource.read(topic.id);
     setReplyTo(topic.user!);
     notifyListeners();
