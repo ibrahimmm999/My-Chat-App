@@ -1,12 +1,23 @@
-import 'package:d_input/d_input.dart';
+import 'package:chat_app/config/app_route.dart';
+import 'package:chat_app/config/session.dart';
 import 'package:d_view/d_view.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: DView.appBarCenter("Home"),
+      body: Center(
+          child: ElevatedButton(
+              onPressed: () {
+                Session.clearUser();
+                context.go(AppRoute.login);
+              },
+              child: const Text("Log out"))),
+    );
   }
 }
